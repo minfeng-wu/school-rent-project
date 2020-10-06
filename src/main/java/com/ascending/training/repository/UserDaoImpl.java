@@ -69,6 +69,25 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    public User findUserBynameAndEmail(String name, String email) throws Exception {
+        String hql = "FROM User as u join fetch u.roles where lower(u.email) =:email and u.name =:name";
+        logger.debug(String.format("User name: %s, email: %s", name, email));
+
+        //finally generate to close
+        try(Session session = HibernateUtil.getSessionFactory().openSession()){
+            Query<User> query = session.createQuery(hql);
+            query.setParameter("email", email.toLowerCase().trim());
+            query.setParameter("name",name);
+
+            return query.uniqueResult();
+        }
+        catch(Exception e){
+            logger.debug("can't find user record or session in getUserByCredentials");
+            throw new Exception("can't find user record or session");
+        }
+    }
+
+    @Override
     public User addRole(User user, Role role) {
         return null;
     }

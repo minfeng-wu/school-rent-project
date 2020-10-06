@@ -89,4 +89,17 @@ public class UserDaoTest {
         }
         assertEquals(email, user.getEmail());
     }
+
+    @Test
+    public void getUserByUserAndEmail(){
+        String email = "dwang@training.ascendingdc.com";
+        String name = "dwang";
+        User user = null;
+        try {
+            user = userDao.findUserBynameAndEmail(name, email);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        assertEquals(email, user.getEmail());
+    }
 }

@@ -5,10 +5,12 @@ import com.ascending.training.model.Account;
 import com.ascending.training.model.School;
 import com.ascending.training.util.HibernateUtil;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -16,6 +18,8 @@ import java.util.List;
 @Repository
 public class AccountDaoImpl implements AccountDao {
     private Logger logger = LoggerFactory.getLogger(AccountDaoImpl.class);
+
+
 
     @Override
     public Account save(Account account) {
@@ -82,7 +86,7 @@ public class AccountDaoImpl implements AccountDao {
     }
 
     @Override
-    public Account getItemById(Long id) {
+    public Account getAccountById(Long id) {
         if (id == null) return null;
         String hql = "FROM Account as a where a.id =:id";
 

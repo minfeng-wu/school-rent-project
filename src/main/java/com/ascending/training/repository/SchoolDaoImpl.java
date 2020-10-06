@@ -118,7 +118,8 @@ public class SchoolDaoImpl implements SchoolDao {
     @Override
     public School getSchoolByName(String schoolName) {
         if (schoolName == null) return null;
-        String hql = "FROM School as s where s.name =:schoolName";
+       // String hql = "FROM School as s join Fetch s.accounts as acct join Fetch acct.orders where s.name =:schoolName";
+        String hql = "FROM School as s join Fetch s.accounts as acct where s.name =:schoolName";
 
         try (Session session = HibernateUtil.getSession()){
             Query<School> query = session.createQuery(hql);

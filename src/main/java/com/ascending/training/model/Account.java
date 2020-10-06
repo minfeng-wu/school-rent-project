@@ -1,5 +1,7 @@
 package com.ascending.training.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.HashSet;
@@ -46,10 +48,12 @@ public class Account {
     @Column(name = "balance")
     private BigDecimal balance;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "school_id")
     private School school;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Order> orders;
 

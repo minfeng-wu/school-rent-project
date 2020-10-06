@@ -11,7 +11,7 @@ public interface AccountDao {
     boolean deleteByName(String accountName);
     boolean delete(Account account);
     List<Account> getAccounts();
-    Account getItemById(Long id);
+    Account getAccountById(Long id);
    // List<School> getDepartmentsWithChildren();
     Account getAccountByName(String accountName);
 }

@@ -23,13 +23,32 @@ import static org.junit.Assert.assertEquals;
 @SpringBootTest(classes = AppInitializer.class)
 public class SchoolDaoServiceTest {
     private Logger logger = LoggerFactory.getLogger(SchoolDaoTest.class);
-    //private School testSchool;
+    private School testSchool;
+
 
     @Autowired
     private SchoolDaoService schoolDaoService;
 
+    @Before
+    public void setup() {
+        testSchool = getSchoolForTest("BU", "Boston", "Massacus", "123123 street");
+        schoolDaoService.saveSchool(testSchool);
+    }
+
+    @After
+    public void teardown(){
+        schoolDaoService.deleteSchool(testSchool);
+    }
 
 
+    private School getSchoolForTest(String name, String city, String state, String address){
+        School school = new School();
+        school.setName(name);
+        school.setCity(city);
+        school.setState(state);
+        school.setAddress(address);
+        return school;
+    }
 
 
 
@@ -37,9 +56,17 @@ public class SchoolDaoServiceTest {
 
 
     @Test
+    public void getSchoolByNameTest(){
+        School retrievedSchool = schoolDaoService.getSchoolbyName(testSchool.getName());
+        assertEquals("id should be the same", retrievedSchool.getId(), testSchool.getId());
+        logger.info("School = {}", retrievedSchool);
+    }
+
+
+    @Test
     public void getSchoolTest(){
         List<School> schoolList = schoolDaoService.getAllSchools();
-        assertEquals(3,schoolList.size());
+        assertEquals(4,schoolList.size());
     }
 
 
